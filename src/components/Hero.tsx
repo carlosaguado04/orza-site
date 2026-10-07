@@ -82,7 +82,7 @@ export function Hero() {
               href={downloadUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-acid px-7 py-3.5 text-sm font-bold text-void transition-transform duration-[var(--dur)] ease-[var(--ease-out)] hover:scale-[1.03] active:scale-[0.98]"
+              className="btn-acid group relative overflow-hidden px-7 py-3.5 text-sm"
             >
               <span className="absolute inset-0 -translate-x-full bg-white/30 transition-transform duration-500 ease-[var(--ease-expo)] group-hover:translate-x-0" />
               <span className="relative">Download Orza</span>
