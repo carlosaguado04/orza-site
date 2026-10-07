@@ -22,7 +22,7 @@ export function CtaBand() {
       >
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(232,255,61,0.22),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--bloom-a),transparent_60%)]"
           style={{ opacity: glow }}
         />
         <div className="grain" />
@@ -37,7 +37,7 @@ export function CtaBand() {
             href={downloadUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-10 inline-flex items-center justify-center rounded-full bg-acid px-8 py-4 text-sm font-bold text-void transition-transform duration-[var(--dur)] ease-[var(--ease-out)] hover:scale-[1.03] active:scale-[0.98]"
+            className="btn-acid mt-10 px-8 py-4 text-sm"
           >
             Get Orza
           </a>

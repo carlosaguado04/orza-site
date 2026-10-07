@@ -38,7 +38,7 @@ export function Marquee() {
               className="inline-flex items-center gap-10 text-[clamp(1.4rem,3.2vw,2.4rem)] font-bold tracking-[-0.04em] text-ink"
             >
               {item}
-              <span className="inline-block size-2 rounded-full bg-acid shadow-[0_0_12px_var(--acid-glow)]" />
+              <span className="dot-acid inline-block size-2 rounded-full" />
             </span>
           ))}
         </div>
