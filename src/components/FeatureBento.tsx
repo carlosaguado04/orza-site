@@ -63,7 +63,7 @@ export function FeatureBento() {
                     wide ? "min-h-[200px] lg:min-h-[220px]" : ""
                   }`}
                 >
-                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(600px_circle_at_50%_0%,rgba(232,255,61,0.08),transparent_45%)]" />
+                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(600px_circle_at_50%_0%,var(--bloom-b),transparent_45%)]" />
                   <div className="relative flex items-start justify-between gap-3">
                     <h3
                       className={`font-bold tracking-tight text-ink ${
