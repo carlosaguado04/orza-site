@@ -7,28 +7,21 @@ import { featureGroups } from "@/lib/features";
 export const metadata: Metadata = {
   title: "Features",
   description:
-    "Orza features as shipped: Spaces, tree tabs, split tabs, Veil, adblock, Library, Reader, and more — all from the live macOS app.",
+    "Orza features: Spaces, tree tabs, split tabs, Veil, Shield, Library, Reader, and more.",
 };
 
 export default function FeaturesPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-edge">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_60%_80%_at_50%_0%,rgba(232,255,61,0.07),transparent)]"
-        />
-        <div className="relative mx-auto max-w-[var(--max)] px-[var(--pad)] pt-16 pb-12 sm:pt-20">
+      <section className="relative z-10 overflow-hidden pt-[calc(var(--nav-h)+3rem)] pb-16">
+        <div className="mx-auto max-w-[var(--max)] px-[var(--pad)]">
           <Reveal>
-            <p className="mb-3 text-xs font-bold tracking-[0.18em] text-ink-dim uppercase">
-              Capabilities
-            </p>
-            <h1 className="mark max-w-2xl text-4xl tracking-tight text-ink sm:text-5xl">
-              Features as shipped
+            <h1 className="display max-w-[12ch] text-[clamp(3rem,9vw,6.5rem)] text-ink">
+              Features.
             </h1>
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-mute">
-              Grouped from Orza Settings, menus, and chrome. Shortcuts shown where
-              the app defines them.
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-mute">
+              Spaces, tree tabs, split, Veil, Shield, Library — shortcuts where
+              they matter.
             </p>
           </Reveal>
         </div>
@@ -38,17 +31,20 @@ export default function FeaturesPage() {
         <section
           key={group.id}
           id={group.id}
-          className={gi > 0 ? "border-t border-edge" : undefined}
+          className="relative z-10 border-t border-edge"
         >
-          <div className="mx-auto max-w-[var(--max)] px-[var(--pad)] py-16 sm:py-20">
+          <div className="mx-auto max-w-[var(--max)] px-[var(--pad)] py-20 sm:py-24">
             <Reveal>
-              <div className="mb-8 max-w-2xl">
-                <h2 className="mark text-2xl tracking-tight text-ink sm:text-3xl">
-                  {group.title}
-                </h2>
-                <p className="mt-2 text-sm text-ink-mute sm:text-base">
-                  {group.lede}
-                </p>
+              <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                <div className="max-w-2xl">
+                  <p className="mb-2 text-xs font-bold tracking-[0.2em] text-acid uppercase">
+                    {String(gi + 1).padStart(2, "0")}
+                  </p>
+                  <h2 className="display text-[clamp(2rem,4vw,3.2rem)] text-ink">
+                    {group.title}
+                  </h2>
+                  <p className="mt-3 text-base text-ink-mute">{group.lede}</p>
+                </div>
               </div>
             </Reveal>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -62,7 +58,7 @@ export default function FeaturesPage() {
         </section>
       ))}
 
-      <div className="border-t border-edge">
+      <div className="relative z-10 border-t border-edge">
         <CtaBand />
       </div>
     </>
