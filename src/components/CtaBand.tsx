@@ -1,33 +1,48 @@
+"use client";
+
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { downloadUrl } from "@/lib/features";
-import { Reveal } from "./Reveal";
 
 export function CtaBand() {
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const scale = useTransform(scrollYProgress, [0, 0.4, 1], [0.94, 1, 1.02]);
+  const glow = useTransform(scrollYProgress, [0, 0.5], [0.3, 1]);
+
   return (
-    <Reveal>
-      <section className="mx-auto max-w-[var(--max)] px-[var(--pad)] py-20 sm:py-28">
-        <div className="surface relative overflow-hidden px-6 py-12 sm:px-12 sm:py-16">
-          <div className="grain" />
-          <div className="relative flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
-            <div className="max-w-xl space-y-3">
-              <h2 className="mark text-2xl tracking-tight text-ink sm:text-3xl">
-                Install Orza on your Mac
-              </h2>
-              <p className="text-sm leading-relaxed text-ink-mute sm:text-base">
-                Public builds live on GitHub Releases. Developer ID signed
-                (Team ID P3RR8U6LX6).
-              </p>
-            </div>
-            <a
-              href={downloadUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center justify-center rounded-full bg-acid px-6 py-3 text-sm font-bold text-void transition-transform duration-[var(--dur)] ease-[var(--ease-out)] hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Get Orza
-            </a>
-          </div>
+    <section ref={ref} className="relative z-10 px-[var(--pad)] py-20 sm:py-28">
+      <motion.div
+        className="relative mx-auto max-w-[var(--max)] overflow-hidden rounded-[2rem] border border-acid/30 bg-void-lift px-6 py-16 sm:px-14 sm:py-24"
+        style={reduce ? undefined : { scale }}
+      >
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(232,255,61,0.22),transparent_60%)]"
+          style={{ opacity: glow }}
+        />
+        <div className="grain" />
+        <div className="relative text-center">
+          <h2 className="display mx-auto max-w-[12ch] text-[clamp(2.6rem,7vw,5.5rem)] text-ink">
+            Install Orza on your Mac.
+          </h2>
+          <p className="mx-auto mt-5 max-w-lg text-ink-mute">
+            Free download for macOS.
+          </p>
+          <a
+            href={downloadUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-10 inline-flex items-center justify-center rounded-full bg-acid px-8 py-4 text-sm font-bold text-void transition-transform duration-[var(--dur)] ease-[var(--ease-out)] hover:scale-[1.03] active:scale-[0.98]"
+          >
+            Get Orza
+          </a>
         </div>
-      </section>
-    </Reveal>
+      </motion.div>
+    </section>
   );
 }

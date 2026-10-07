@@ -1,7 +1,9 @@
 "use client";
 
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { downloadUrl } from "@/lib/features";
 
 const links = [
@@ -11,12 +13,24 @@ const links = [
 
 export function Nav() {
   const pathname = usePathname();
+  const { scrollY } = useScroll();
+  const [scrolled, setScrolled] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (v) => {
+    setScrolled(v > 24);
+  });
 
   return (
-    <header className="sticky top-0 z-50 border-b border-edge bg-[color-mix(in_srgb,var(--void)_86%,transparent)] backdrop-blur-xl">
+    <motion.header
+      className={`fixed inset-x-0 top-0 z-50 transition-[border-color,background] duration-[400ms] ${
+        scrolled
+          ? "border-b border-edge bg-[color-mix(in_srgb,var(--void)_82%,transparent)] backdrop-blur-2xl"
+          : "border-b border-transparent bg-transparent"
+      }`}
+    >
       <div className="mx-auto flex h-[var(--nav-h)] max-w-[var(--max)] items-center justify-between px-[var(--pad)]">
-        <Link href="/" className="mark text-[1.15rem] tracking-tight text-ink">
-          Orza
+        <Link href="/" className="mark text-[1.2rem] tracking-tight text-ink">
+          Orza<span className="text-acid">.</span>
         </Link>
         <nav className="flex items-center gap-1 sm:gap-2">
           {links.map((link) => {
@@ -39,12 +53,12 @@ export function Nav() {
             href={downloadUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-1 rounded-full bg-acid px-3.5 py-1.5 text-sm font-bold text-void transition-transform duration-[var(--dur)] ease-[var(--ease-out)] hover:scale-[1.02] active:scale-[0.98]"
+            className="ml-1 rounded-full bg-acid px-3.5 py-1.5 text-sm font-bold text-void transition-transform duration-[var(--dur)] ease-[var(--ease-out)] hover:scale-[1.03] active:scale-[0.98]"
           >
             Download
           </a>
         </nav>
       </div>
-    </header>
+    </motion.header>
   );
 }
