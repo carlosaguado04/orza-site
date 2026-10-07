@@ -55,7 +55,7 @@ export function InteractiveChrome() {
         Scroll to split · Veil washes in
       </p>
       <motion.div
-        className="relative overflow-hidden rounded-[1.35rem] border border-edge bg-void-lift shadow-[0_50px_120px_-40px_rgba(0,0,0,0.95),0_0_80px_-40px_rgba(232,255,61,0.25)]"
+        className="relative overflow-hidden rounded-[1.35rem] border border-edge bg-void-lift shadow-[var(--chrome-shadow)]"
         style={
           reduce
             ? undefined
@@ -80,7 +80,7 @@ export function InteractiveChrome() {
           />
         )}
         <motion.div
-          className="pointer-events-none absolute inset-0 z-30 bg-[radial-gradient(ellipse_at_center,rgba(232,255,61,0.08),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 z-30 bg-[radial-gradient(ellipse_at_center,var(--bloom-b),transparent_60%)]"
           style={{ opacity: veil }}
         />
 
@@ -134,7 +134,7 @@ export function InteractiveChrome() {
                 >
                   <span
                     className={`size-1.5 rounded-full ${
-                      t.active ? "bg-acid" : "bg-ink-dim"
+                      t.active ? "bg-[var(--acid-fill)]" : "bg-ink-dim"
                     }`}
                   />
                   <span className="text-[0.7rem] text-ink-mute">{t.label}</span>
@@ -144,10 +144,10 @@ export function InteractiveChrome() {
             <div className="mt-auto rounded-xl border border-edge bg-void-lift p-2.5">
               <div className="mb-1.5 flex items-center justify-between">
                 <span className="text-[0.65rem] text-ink-dim">Now Playing</span>
-                <span className="size-1.5 animate-pulse rounded-full bg-acid" />
+                <span className="size-1.5 animate-pulse rounded-full bg-[var(--acid-fill)]" />
               </div>
               <div className="h-1 w-full overflow-hidden rounded bg-edge">
-                <div className="h-full w-2/5 rounded bg-acid/70" />
+                <div className="h-full w-2/5 rounded bg-[color-mix(in_srgb,var(--acid-fill)_70%,transparent)]" />
               </div>
             </div>
           </aside>
@@ -179,7 +179,7 @@ export function InteractiveChrome() {
               style={{ opacity: reduce ? 1 : pane2Opacity }}
             >
               <div className="mb-4 inline-flex items-center gap-2">
-                <span className="kbd">⌘\</span>
+                <span className="kbd">⌘\\</span>
                 <span className="text-[0.7rem] text-ink-mute">Split</span>
               </div>
               <div className="space-y-2">
