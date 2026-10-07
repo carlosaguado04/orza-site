@@ -33,6 +33,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
+      <head>
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=satoshi@400,700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="relative flex min-h-full flex-col antialiased">
         <SmoothScroll>
           <AmbientBg />
