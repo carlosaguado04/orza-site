@@ -16,7 +16,9 @@
   font-display: swap;
 }
 
-:root {
+/* Dark (default) */
+:root,
+[data-theme="dark"] {
   --void: #070708;
   --void-lift: #0e0e11;
   --void-raised: #15151a;
@@ -26,14 +28,57 @@
   --edge: rgba(242, 242, 239, 0.08);
   --edge-strong: rgba(242, 242, 239, 0.16);
   --acid: #e8ff3d;
+  --acid-fill: #e8ff3d;
+  --acid-on: #070708;
   --acid-soft: rgba(232, 255, 61, 0.14);
   --acid-glow: rgba(232, 255, 61, 0.45);
+  --bloom-a: rgba(232, 255, 61, 0.16);
+  --bloom-b: rgba(232, 255, 61, 0.08);
+  --bloom-c: rgba(232, 255, 61, 0.07);
+  --web-line: #e8ff3d;
+  --web-node: #e8ff3d;
+  --web-fade: #f2f2ef;
+  --grain-opacity: 0.045;
+  --grain-blend: overlay;
+  --shadow-deep: 0 24px 60px -36px rgba(0, 0, 0, 0.9);
+  --chrome-shadow: 0 50px 120px -40px rgba(0, 0, 0, 0.95),
+    0 0 80px -40px rgba(232, 255, 61, 0.25);
+  --kbd-shine: 0 1px 0 rgba(255, 255, 255, 0.04);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --dur: 420ms;
   --pad: clamp(1.25rem, 4vw, 3.5rem);
   --max: 80rem;
   --nav-h: 4rem;
+}
+
+/* Light — paper / premium, not bootstrap white */
+[data-theme="light"] {
+  --void: #f3f2ec;
+  --void-lift: #faf9f4;
+  --void-raised: #ffffff;
+  --ink: #121214;
+  --ink-mute: #5a5a56;
+  --ink-dim: #8a8a84;
+  --edge: rgba(18, 18, 20, 0.08);
+  --edge-strong: rgba(18, 18, 20, 0.14);
+  --acid: #5c6810;
+  --acid-fill: #e8ff3d;
+  --acid-on: #070708;
+  --acid-soft: rgba(232, 255, 61, 0.42);
+  --acid-glow: rgba(180, 200, 40, 0.4);
+  --bloom-a: rgba(232, 255, 61, 0.35);
+  --bloom-b: rgba(232, 255, 61, 0.18);
+  --bloom-c: rgba(200, 210, 120, 0.22);
+  --web-line: #8a9420;
+  --web-node: #6a7614;
+  --web-fade: #121214;
+  --grain-opacity: 0.055;
+  --grain-blend: multiply;
+  --shadow-deep: 0 24px 50px -32px rgba(18, 18, 20, 0.18);
+  --chrome-shadow: 0 40px 80px -36px rgba(18, 18, 20, 0.22),
+    0 0 60px -30px rgba(232, 255, 61, 0.35);
+  --kbd-shine: 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 @theme inline {
@@ -46,6 +91,8 @@
   --color-edge: var(--edge);
   --color-edge-strong: var(--edge-strong);
   --color-acid: var(--acid);
+  --color-acid-fill: var(--acid-fill);
+  --color-acid-on: var(--acid-on);
   --color-acid-soft: var(--acid-soft);
   --font-sans: "Satoshi", system-ui, sans-serif;
   --ease-orza: var(--ease-out);
@@ -86,6 +133,9 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  transition:
+    background-color 280ms var(--ease-out),
+    color 280ms var(--ease-out);
 }
 
 ::selection {
@@ -122,7 +172,7 @@ a {
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.2;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow: var(--kbd-shine);
 }
 
 .surface {
@@ -138,10 +188,10 @@ a {
 }
 
 .surface:hover {
-  border-color: color-mix(in srgb, var(--acid) 40%, var(--edge-strong));
+  border-color: color-mix(in srgb, var(--acid-fill) 45%, var(--edge-strong));
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--acid) 16%, transparent),
-    0 24px 60px -36px rgba(0, 0, 0, 0.9);
+    0 0 0 1px color-mix(in srgb, var(--acid-fill) 22%, transparent),
+    var(--shadow-deep);
   background: color-mix(in srgb, var(--void-raised) 70%, transparent);
 }
 
@@ -149,14 +199,38 @@ a {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  opacity: 0.045;
-  mix-blend-mode: overlay;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 .acid-text {
   color: var(--acid);
   text-shadow: 0 0 40px var(--acid-glow);
+}
+
+.btn-acid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--acid-fill);
+  color: var(--acid-on);
+  font-weight: 700;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.btn-acid:hover {
+  transform: scale(1.03);
+}
+
+.btn-acid:active {
+  transform: scale(0.98);
+}
+
+.dot-acid {
+  background: var(--acid-fill);
+  box-shadow: 0 0 12px var(--acid-glow);
 }
 
 @keyframes marquee {
