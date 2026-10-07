@@ -27,10 +27,12 @@
   --edge-strong: rgba(242, 242, 239, 0.16);
   --acid: #e8ff3d;
   --acid-soft: rgba(232, 255, 61, 0.14);
+  --acid-glow: rgba(232, 255, 61, 0.45);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --dur: 420ms;
   --pad: clamp(1.25rem, 4vw, 3.5rem);
-  --max: 72rem;
+  --max: 80rem;
   --nav-h: 4rem;
 }
 
@@ -54,7 +56,24 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  background: var(--void);
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {
@@ -66,6 +85,7 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -78,27 +98,23 @@ a {
   text-decoration: none;
 }
 
-.surface {
-  background: var(--void-lift);
-  border: 1px solid var(--edge);
-  border-radius: 1rem;
-  transition:
-    border-color var(--dur) var(--ease-out),
-    box-shadow var(--dur) var(--ease-out),
-    transform var(--dur) var(--ease-out);
+.mark {
+  font-weight: 700;
+  letter-spacing: -0.04em;
 }
 
-.surface:hover {
-  border-color: color-mix(in srgb, var(--acid) 35%, var(--edge-strong));
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--acid) 18%, transparent);
+.display {
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 0.92;
 }
 
 .kbd {
   display: inline-flex;
   align-items: center;
   gap: 0.15rem;
-  padding: 0.12rem 0.4rem;
-  border-radius: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.4rem;
   border: 1px solid var(--edge-strong);
   background: var(--void-raised);
   color: var(--ink-mute);
@@ -106,24 +122,110 @@ a {
   font-weight: 700;
   letter-spacing: 0.02em;
   line-height: 1.2;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.mark {
-  font-weight: 700;
-  letter-spacing: -0.03em;
+.surface {
+  background: color-mix(in srgb, var(--void-lift) 88%, transparent);
+  border: 1px solid var(--edge);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(12px);
+  transition:
+    border-color var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out),
+    background var(--dur) var(--ease-out);
+}
+
+.surface:hover {
+  border-color: color-mix(in srgb, var(--acid) 40%, var(--edge-strong));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--acid) 16%, transparent),
+    0 24px 60px -36px rgba(0, 0, 0, 0.9);
+  background: color-mix(in srgb, var(--void-raised) 70%, transparent);
 }
 
 .grain {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.acid-text {
+  color: var(--acid);
+  text-shadow: 0 0 40px var(--acid-glow);
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 38s linear infinite;
+  width: max-content;
+}
+
+@keyframes bloom-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(4%, -6%, 0) scale(1.08);
+    opacity: 0.85;
+  }
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-line {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.bloom {
+  animation: bloom-drift 14s var(--ease-out) infinite;
+}
+
+.orbit {
+  animation: orbit-spin 60s linear infinite;
+}
+
+.pulse-line {
+  animation: pulse-line 4s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .marquee-track,
+  .bloom,
+  .orbit,
+  .pulse-line {
+    animation: none !important;
   }
 
   *,
