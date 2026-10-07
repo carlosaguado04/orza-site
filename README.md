@@ -1,40 +1,20 @@
 # Orza site
 
-Marketing site for **Orza**, Acidity Studio’s macOS browser.
+Marketing site for [Orza](https://github.com/Acidity-Studio/orza-releases) — macOS browser by Acidity Studio.
 
 ## Stack
 
-- Next.js (App Router) + TypeScript + Tailwind CSS v4
-- Framer Motion (respects `prefers-reduced-motion`)
-- Satoshi for UI and the Orza wordmark (Fontshare CDN + optional local `public/fonts/*.woff2`)
+- Next.js 16 + React 19 + Tailwind CSS v4
+- Framer Motion + Lenis (smooth scroll)
+- Satoshi Bold wordmark, void `#070708`, acid `#e8ff3d`
 
-## Run locally
+## Dev
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+## Notes
 
-```bash
-npm run build
-npm start
-```
-
-## Deploy
-
-Vercel-ready. Point a project at this repo (`carlosaguado04/orza-site`); no special env vars required. Hook Vercel next when ready.
-
-## Content rules
-
-Feature copy is limited to what exists in the Orza app (Settings, menus, chrome). Do not invent passkeys, sync, AI, mobile, or extension stores.
-
-## Feature groups on the site
-
-- **Tabs & Spaces** — Spaces, tree tabs, split tabs, sidebar
-- **Privacy & Shields** — Adblock, block popups, permissions, Veil, connection security
-- **Chrome & Library** — URL pill, Hide Chrome, appearance, accent, media player, Library, Reader, Find
-- **Everyday** — New Tab, search engine, restore session, downloads, bookmark, share
-
-Downloads: https://github.com/Acidity-Studio/orza-releases
+Feature copy maps only to shipped Orza capabilities. Download CTA → Acidity Studio releases.
