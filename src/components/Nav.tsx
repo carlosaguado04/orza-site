@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { downloadUrl } from "@/lib/features";
+import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
   { href: "/", label: "Home" },
@@ -30,7 +31,7 @@ export function Nav() {
     >
       <div className="mx-auto flex h-[var(--nav-h)] max-w-[var(--max)] items-center justify-between px-[var(--pad)]">
         <Link href="/" className="mark text-[1.2rem] tracking-tight text-ink">
-          Orza<span className="text-acid">.</span>
+          Orza<span className="acid-text">.</span>
         </Link>
         <nav className="flex items-center gap-1 sm:gap-2">
           {links.map((link) => {
@@ -49,11 +50,12 @@ export function Nav() {
               </Link>
             );
           })}
+          <ThemeToggle />
           <a
             href={downloadUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-1 rounded-full bg-acid px-3.5 py-1.5 text-sm font-bold text-void transition-transform duration-[var(--dur)] ease-[var(--ease-out)] hover:scale-[1.03] active:scale-[0.98]"
+            className="btn-acid ml-1 px-3.5 py-1.5 text-sm"
           >
             Download
           </a>
